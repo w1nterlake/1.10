@@ -1,6 +1,15 @@
 #include <cstdio>
 #include <cstdlib>
 #include <pthread.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+
+
+double get_cpu_time();
+
+double get_full_time();
+
+
 
 struct Args{
     int size = 0;
@@ -8,6 +17,7 @@ struct Args{
     char *filename = nullptr;
     bool ret = false;
     int num = 0;
+    double time = 0;
 };
 
 

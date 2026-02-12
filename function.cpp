@@ -1,6 +1,23 @@
 #include "header.h"
 
+double get_cpu_time()
+{
+  struct rusage buf;
+  getrusage(RUSAGE_THREAD, &buf);
+  return buf.ru_utime.tv_sec + buf.ru_utime.tv_usec /1.e6;
+}
+
+double get_full_time()
+{
+  struct timeval buf;
+  gettimeofday(&buf, 0);
+  return buf.tv_sec + buf.tv_usec / 1.e6;
+}
+
+
+
 void *func(void *arg){
+    double t = get_cpu_time();
     Args *tmp = (Args *)arg;
     FILE *fin = fopen(tmp->filename, "r");
     int current, last, last_last;
@@ -31,4 +48,7 @@ void *func(void *arg){
     tmp->size = size;
     tmp->ret = true;
     fclose(fin);
+    t = get_cpu_time() - t;
+    tmp->time = t;
+    return nullptr;
 }
