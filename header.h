@@ -16,6 +16,7 @@ struct Args{
     int count = 0;
     char *filename = nullptr;
     bool ret = false;
+    bool ret2 = false;
     int num = 0;
     double time = 0;
 };

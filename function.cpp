@@ -22,8 +22,10 @@ void *func(void *arg){
     FILE *fin = fopen(tmp->filename, "r");
     int current, last, last_last;
     int count = 0, size = 0;
+    bool ok = true;
+    bool fl = true;
     if(fin == nullptr){
-        tmp->ret = false;
+        ok = false;
     }
     else{
         while(fscanf(fin, "%d", &current) == 1){
@@ -43,11 +45,17 @@ void *func(void *arg){
                 last = current;
             }
         }
+        if(!feof(fin)){
+            fl = false;
+        }
     }
     tmp->count = count;
     tmp->size = size;
-    tmp->ret = true;
-    fclose(fin);
+    tmp->ret = ok;
+    tmp->ret2 = fl;
+    if(ok){
+        fclose(fin);
+    }
     t = get_cpu_time() - t;
     tmp->time = t;
     return nullptr;

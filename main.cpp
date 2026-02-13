@@ -26,6 +26,10 @@ int main(int argc, char *argv[]){
     bool flag = true;
 
     for(int i = 0; i < p; i++){
+        if(!args[i].ret2){
+            printf("Num file %d is not correct\n", args[i].num);
+            continue;
+        }
         if(!args[i].ret){
             printf("-%d\n", args[i].num);
         }
